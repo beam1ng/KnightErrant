@@ -1,15 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
+using UnityEngine.InputSystem;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float gravity = 10;
+    public float gravity = 40;
 
     public float jumpVerticalVelocity = 25;
     private float _currentVerticalVelocity = 0f;
@@ -48,21 +50,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleGravity(PlayerState ps)
     {
+        float deltaTime = Time.deltaTime;
         switch (ps)
         {
             case PlayerState.OnGround:
                 break;
             case PlayerState.InAir:
-                PlayerFall(Time.deltaTime);
+                _currentVerticalVelocity -= gravity * deltaTime;
                 break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(ps), ps, null);
-        }
-    }
 
-    private void PlayerFall(float deltaTime)
-    {
-        _currentVerticalVelocity -= gravity * deltaTime;
+        }
         transform.position+=Vector3.up*_currentVerticalVelocity*deltaTime;
     }
 
@@ -73,21 +70,14 @@ public class PlayerMovement : MonoBehaviour
         col.GetContacts(contacts);
         
         _ps = PlayerState.InAir;
-        foreach (var contact in contacts)
-        {
-            if (Vector2.Angle(contact.normal, Vector2.up) < 45f)
-            {
-                _ps = PlayerState.OnGround;
-                _currentVerticalVelocity = 0;
-                break;
-            }
-        }
+        if (!contacts.Any(contact => Vector2.Angle(contact.normal, Vector2.up) < 45f)) return;
+        _ps = PlayerState.OnGround;
+        _currentVerticalVelocity = 0;
     }
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        _collisionCount--;
-        if (_collisionCount == 0)
+        if (--_collisionCount == 0)
         {
             _ps = PlayerState.InAir;
         }
@@ -107,8 +97,14 @@ public class PlayerMovement : MonoBehaviour
                 break;
             case PlayerAnimationState.Falling:
                 break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(pas), pas, null);
         }
+    }
+
+    public void Jump(InputAction.CallbackContext ctx)
+    {
+        if (_ps != PlayerState.OnGround) return;
+        if (!ctx.started) return;
+        Debug.Log("jump");
+        _currentVerticalVelocity = jumpVerticalVelocity;
     }
 }
