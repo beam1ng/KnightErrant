@@ -11,10 +11,11 @@ using Vector3 = UnityEngine.Vector3;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public float jumpHeight = 3.5f;
     public float gravity = 40;
-    public float jumpVerticalVelocity = 25;
+    private float _jumpVerticalVelocity;
 
-    public delegate void EventHandler(GameObject ground);
+    public delegate void EventHandler(Guid groundHitID);
     public event EventHandler PlayerLandedEvent;
     
     private float _currentVerticalVelocity = 0f;
@@ -36,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        _jumpVerticalVelocity = (float)Math.Sqrt(2 * gravity * jumpHeight);
         GameSpeed.GS.GameSpeedChangedEvent += GameSpeedChanged;
     }
 
@@ -82,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
         _ps = PlayerState.OnGround;
         if (initialPlayerState == PlayerState.InAir && _ps == PlayerState.OnGround)
         {
-            OnPlayerLanded(col.gameObject);
+            OnPlayerLanded(col.gameObject.GetComponent<GroundMovement>().GetID());
         }
         _currentVerticalVelocity = 0;
     }
@@ -116,11 +118,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_ps != PlayerState.OnGround) return;
         if (!ctx.started) return;
-        _currentVerticalVelocity = jumpVerticalVelocity;
+        _currentVerticalVelocity = _jumpVerticalVelocity;
     }
 
-    protected virtual void OnPlayerLanded(GameObject ground)
+    protected virtual void OnPlayerLanded(Guid groundHitID)
     {
-        PlayerLandedEvent?.Invoke(ground);
+        PlayerLandedEvent?.Invoke(groundHitID);
     }
 }

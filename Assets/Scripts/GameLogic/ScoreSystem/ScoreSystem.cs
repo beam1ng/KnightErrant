@@ -12,7 +12,7 @@ public class ScoreSystem : MonoBehaviour
 
     public event EventHandler SuccessfulJumpEvent;
 
-    private GameObject _lastGround;
+    private Guid _lastGroundID;
 
     private void Awake()
     {
@@ -31,15 +31,12 @@ public class ScoreSystem : MonoBehaviour
         GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().PlayerLandedEvent += CheckProgress;
     }
 
-    private void CheckProgress(GameObject ground)
+    private void CheckProgress(Guid groundHitID)
     {
-        if (_lastGround == null)
-        {
-            _lastGround = ground;
-        }
-        else if (_lastGround != ground && ground.CompareTag("Ground"))
+        if (_lastGroundID != groundHitID)
         {
             SuccessfulJump();
+            _lastGroundID = groundHitID;
         }
     }
     
