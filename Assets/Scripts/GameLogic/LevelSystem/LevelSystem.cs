@@ -25,12 +25,11 @@ public class LevelSystem : MonoBehaviour
         {
             LS = this;
         }
-        DontDestroyOnLoad(this);
     }
 
     private void Start()
     {
-        GetComponent<ScoreSystem>().SuccessfulJumpEvent += OnSuccessfulJump;
+        ScoreSystem.SS.SuccessfulJumpEvent += OnSuccessfulJump;
     }
 
     public void OnSuccessfulJump(int successfulJumps)

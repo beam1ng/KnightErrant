@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        GameObject.FindWithTag("GameLogic").GetComponent<GameSpeed>().GameSpeedChangedEvent += GameSpeedChanged;
+        GameSpeed.GS.GameSpeedChangedEvent += GameSpeedChanged;
     }
 
     private void FixedUpdate()

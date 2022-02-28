@@ -26,12 +26,11 @@ public class GameSpeed : MonoBehaviour
         {
             GS = this;
         }
-        DontDestroyOnLoad(this);
     }
 
     private void Start()
     {
-        GetComponent<LevelSystem>().LevelChangedEvent += OnLevelChanged;
+        LevelSystem.LS.LevelChangedEvent += OnLevelChanged;
     }
 
     private void OnLevelChanged(int newLevel)

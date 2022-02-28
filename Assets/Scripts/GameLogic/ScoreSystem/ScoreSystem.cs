@@ -24,7 +24,6 @@ public class ScoreSystem : MonoBehaviour
         {
             SS = this;
         }
-        DontDestroyOnLoad(this);
     }
 
     void Start()
