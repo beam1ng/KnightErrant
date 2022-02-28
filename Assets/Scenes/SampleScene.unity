@@ -140,6 +140,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6946e7243aab5264b8d72d8fd2247842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &477748457 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8441475180400112742, guid: 9ec7a5f7c772a0246a3d8d893baff0fc, type: 3}
+  m_PrefabInstance: {fileID: 8441475181090852021}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &477748459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477748457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 500150bcabb4d564f851ab63de0451f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interGroundDistance: 3
+  groundPrefab: {fileID: 8537729475995024563, guid: 9bd813bfb2872d74bb8a422c8ab54def, type: 3}
+  firstGround: {fileID: 734638894}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,6 +171,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -166,6 +187,18 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a87e9be21c2f4468ccdeb8c2d480b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -216,13 +249,18 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &734638894 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8537729475995024563, guid: 9bd813bfb2872d74bb8a422c8ab54def, type: 3}
+  m_PrefabInstance: {fileID: 8537729476999346036}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5278794243015237202
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -236,7 +274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5278794242336235162, guid: a82fba9cec0c82f428d66b1c0aeef46a, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5278794242336235162, guid: a82fba9cec0c82f428d66b1c0aeef46a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -287,9 +325,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5654293577368926400, guid: 44f0e36de58f93e419fdbc43594f48ad, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5654293577368926404, guid: 44f0e36de58f93e419fdbc43594f48ad, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5654293577368926405, guid: 44f0e36de58f93e419fdbc43594f48ad, type: 3}
+      propertyPath: jumpHeight
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 5654293577368926407, guid: 44f0e36de58f93e419fdbc43594f48ad, type: 3}
       propertyPath: m_RootOrder
@@ -346,7 +392,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8441475180906787577, guid: 9ec7a5f7c772a0246a3d8d893baff0fc, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8441475180906787577, guid: 9ec7a5f7c772a0246a3d8d893baff0fc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -401,6 +447,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6154894856373657574, guid: 9bd813bfb2872d74bb8a422c8ab54def, type: 3}
+      propertyPath: horizontalSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6683659816369676343, guid: 9bd813bfb2872d74bb8a422c8ab54def, type: 3}
+      propertyPath: baseLifeDuration
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8537729475995024563, guid: 9bd813bfb2872d74bb8a422c8ab54def, type: 3}
       propertyPath: m_Name
       value: Ground

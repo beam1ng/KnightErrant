@@ -9,8 +9,6 @@ public class GroundGenerator : MonoBehaviour
     public GameObject groundPrefab;
     public GameObject firstGround;
 
-    private GameObject _oldGround;
-    private GameObject _newGround;
     private Queue<GameObject> _groundQueue = new Queue<GameObject>();
 
     void Start()
@@ -21,14 +19,11 @@ public class GroundGenerator : MonoBehaviour
 
     private void InstantiateGround(int e)
     {
-        if (_oldGround != null)
-        {
-            Destroy(_oldGround);
-        }
-        _oldGround = _groundQueue.Dequeue();
-        _newGround = Instantiate(groundPrefab);
-        _groundQueue.Enqueue(_newGround);
-        _newGround.transform.position = _oldGround.transform.position+Vector3.up*interGroundDistance;
-        _newGround.GetComponent<GroundMovement>().SetInitialMovement();
+        var oldGround = _groundQueue.Dequeue();
+        var newGround = Instantiate(groundPrefab);
+        Debug.Log(newGround);
+        _groundQueue.Enqueue(newGround);
+        newGround.transform.position = oldGround.transform.position+Vector3.up*interGroundDistance;
+        newGround.GetComponent<GroundMovement>().SetInitialMovement();
     }
 }
