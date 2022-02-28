@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class OffScreenable : MonoBehaviour
 {
     private Vector2 _objectSize;
-    private bool _appearedInScreenOnce = false;
-    private bool _offScreenEventInvoked = false;
+    private bool _appearedInScreenOnce;
+    private bool _offScreenEventInvoked;
+    private GameObject _mainCamera;
+    private float _offScreenBuffer = 5f;
     
     public delegate void EventHandler();
 
@@ -15,15 +16,16 @@ public class OffScreenable : MonoBehaviour
     
     void Start()
     {
+        _mainCamera = GameObject.FindWithTag("MainCamera");
         _objectSize = Vector2.Scale(transform.localScale, GetComponent<SpriteRenderer>().sprite.bounds.size);
     }
     void Update()
     {
         if (_offScreenEventInvoked) return;
-        if (transform.position.x + _objectSize.x / 2 < -1 * ScreenDimensions.SD.GetScreenWidth() / 2 ||
-            transform.position.x - _objectSize.x / 2 > ScreenDimensions.SD.GetScreenWidth() / 2 ||
-            transform.position.y - _objectSize.y / 2 < -1 * ScreenDimensions.SD.GetScreenHeight() / 2 ||
-            transform.position.y + _objectSize.y / 2 > ScreenDimensions.SD.GetScreenHeight() / 2)
+        if (transform.position.x + _objectSize.x / 2 < -1 * (ScreenDimensions.SD.GetScreenWidth() / 2 +_mainCamera.transform.position.x+_offScreenBuffer)||
+            transform.position.x - _objectSize.x / 2 > ScreenDimensions.SD.GetScreenWidth() / 2 +_mainCamera.transform.position.x+_offScreenBuffer||
+            transform.position.y - _objectSize.y / 2 < -1 * (ScreenDimensions.SD.GetScreenHeight() / 2 +_mainCamera.transform.position.y+_offScreenBuffer)||
+            transform.position.y + _objectSize.y / 2 > ScreenDimensions.SD.GetScreenHeight() / 2 +_mainCamera.transform.position.y+_offScreenBuffer)
         {
             if (_appearedInScreenOnce)
             {
@@ -44,5 +46,4 @@ public class OffScreenable : MonoBehaviour
         OffScreenEvent?.Invoke();
         _offScreenEventInvoked = true;
     }
-
 }

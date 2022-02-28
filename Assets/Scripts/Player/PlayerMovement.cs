@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _jumpVerticalVelocity = (float)Math.Sqrt(2 * gravity * jumpHeight);
         GameSpeed.GS.GameSpeedChangedEvent += GameSpeedChanged;
+        GetComponent<OffScreenable>().OffScreenEvent += OnOffScreen;
     }
 
     private void FixedUpdate()
@@ -79,14 +80,23 @@ public class PlayerMovement : MonoBehaviour
 
         var initialPlayerState = _ps;
         
+        //todo eject player sideways onGroundSideTouch
+        
         _ps = PlayerState.InAir;
-        if (!contacts.Any(contact => Vector2.Angle(contact.normal, Vector2.up) < 45f)) return;
-        _ps = PlayerState.OnGround;
-        if (initialPlayerState == PlayerState.InAir && _ps == PlayerState.OnGround)
+        if (contacts.Any(contact => Vector2.Angle(contact.normal, Vector2.down) < 45f))//headbutt
         {
-            OnPlayerLanded(col.gameObject.GetComponent<GroundMovement>().GetID());
+            _currentVerticalVelocity = 0;
         }
-        _currentVerticalVelocity = 0;
+        else if (contacts.Any(contact => Vector2.Angle(contact.normal, Vector2.up) < 45f))//land
+        {
+            _ps = PlayerState.OnGround;
+            if (initialPlayerState == PlayerState.InAir && _ps == PlayerState.OnGround)
+            {
+                OnPlayerLanded(col.gameObject.GetComponent<GroundMovement>().GetID());
+            }
+
+            _currentVerticalVelocity = 0;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D other)
@@ -124,5 +134,11 @@ public class PlayerMovement : MonoBehaviour
     protected virtual void OnPlayerLanded(Guid groundHitID)
     {
         PlayerLandedEvent?.Invoke(groundHitID);
+    }
+    
+    private void OnOffScreen()
+    {
+        Debug.Log("Game Over");
+        Destroy(gameObject);
     }
 }

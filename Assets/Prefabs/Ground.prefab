@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8537729475995024573}
   - component: {fileID: 8537729475995024572}
   - component: {fileID: 8537729475995024575}
+  - component: {fileID: 6154894856373657574}
+  - component: {fileID: 1910678664300667164}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Ground
@@ -131,3 +133,28 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &6154894856373657574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8537729475995024563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4049f55bc8316bf41bf55703b285fd28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horizontalSpeed: 4
+--- !u!114 &1910678664300667164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8537729475995024563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 145790bfa66829e43a457be9af5f06c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

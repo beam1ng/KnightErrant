@@ -1,15 +1,12 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class GroundMovement : MonoBehaviour
 {
-    public float horizontalSpeed;
-    private MovementState _ms = MovementState.MovingLeft;
+    public float horizontalSpeed = 1f;
+    private MovementState _ms = MovementState.Static;
     
-    [SerializeField] private readonly Guid _id = Guid.NewGuid();
+    private readonly Guid _id = Guid.NewGuid();
     
     private enum MovementState
     {
@@ -19,6 +16,7 @@ public class GroundMovement : MonoBehaviour
     private void Start()
     {
         GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().PlayerLandedEvent += OnPlayerLanded;
+        GetComponent<OffScreenable>().OffScreenEvent += OnOffScreen;
     }
 
     private void Update()
@@ -40,10 +38,10 @@ public class GroundMovement : MonoBehaviour
             case MovementState.Static:
                 break;
             case MovementState.MovingLeft:
-                transform.position+=Vector3.left*horizontalSpeed*Time.deltaTime;
+                transform.position+=Vector3.left * (horizontalSpeed * Time.deltaTime);
                 break;
             case MovementState.MovingRight:
-                transform.position+=Vector3.right*horizontalSpeed*Time.deltaTime;
+                transform.position+=Vector3.right * (horizontalSpeed * Time.deltaTime);
                 break;
         }
     }
@@ -51,5 +49,24 @@ public class GroundMovement : MonoBehaviour
     public Guid GetID()
     {
         return _id;
+    }
+
+    public void SetInitialMovement()
+    {
+        if (RandomHandler.RH.Random.Next(0, 2) == 0)
+        {
+            transform.position+=Vector3.right*ScreenDimensions.SD.GetScreenWidth()/2;
+            _ms = MovementState.MovingLeft;
+        }
+        else
+        {
+            transform.position+=Vector3.left*ScreenDimensions.SD.GetScreenWidth()/2;
+            _ms = MovementState.MovingRight;
+        }
+    }
+
+    private void OnOffScreen()
+    {
+        Destroy(gameObject);
     }
 }
