@@ -8,10 +8,12 @@ public class GroundDeletion : MonoBehaviour
 
     private float _gameSpeedAmplifier = 1f;
     private float _lifeTimer;
+    public bool sh = false;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         GameSpeed.GS.GameSpeedChangedEvent += OnGameSpeedChanged;
+        _gameSpeedAmplifier = GameSpeed.GS.GetGameSpeed();
         _lifeTimer = baseLifeDuration;
     }
 
@@ -28,5 +30,10 @@ public class GroundDeletion : MonoBehaviour
     private void OnGameSpeedChanged(float newGameSpeedAmplifier)
     {
         _gameSpeedAmplifier = newGameSpeedAmplifier;
+    }
+
+    public float DebugCurrentLifeDuration()
+    {
+        return _lifeTimer;
     }
 }

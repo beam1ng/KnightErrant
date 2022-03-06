@@ -21,7 +21,6 @@ public class GroundGenerator : MonoBehaviour
     {
         var oldGround = _groundQueue.Dequeue();
         var newGround = Instantiate(groundPrefab);
-        Debug.Log(newGround);
         _groundQueue.Enqueue(newGround);
         newGround.transform.position = oldGround.transform.position+Vector3.up*interGroundDistance;
         newGround.GetComponent<GroundMovement>().SetInitialMovement();

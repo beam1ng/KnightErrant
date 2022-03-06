@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.InputSystem;
@@ -39,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _jumpVerticalVelocity = (float)Math.Sqrt(2 * gravity * jumpHeight);
         GameSpeed.GS.GameSpeedChangedEvent += GameSpeedChanged;
+        _gameSpeed = GameSpeed.GS.GetGameSpeed();
         GetComponent<OffScreenable>().OffScreenEvent += OnOffScreen;
     }
 
@@ -69,12 +71,31 @@ public class PlayerMovement : MonoBehaviour
                 break;
 
         }
-        transform.position+=Vector3.up*_currentVerticalVelocity*deltaTime;
+
+        if (_currentVerticalVelocity < 0)
+        {
+            RaycastHit2D hit;
+            hit = Physics2D.Raycast(transform.position+Vector3.down* 0.5f, Vector3.down, -1 * _currentVerticalVelocity * deltaTime,~(1<<3));
+            if(hit)
+            {
+                transform.position += Vector3.down * hit.distance;
+            }else
+            {
+                transform.position += Vector3.up * _currentVerticalVelocity * deltaTime;
+            }
+        }
+        else
+        {
+            transform.position += Vector3.up * _currentVerticalVelocity * deltaTime;
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D col)
     {
         _collisionCount++;
+
+
         var contacts = new ContactPoint2D[col.contactCount];
         col.GetContacts(contacts);
 

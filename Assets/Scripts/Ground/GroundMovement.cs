@@ -7,16 +7,19 @@ public class GroundMovement : MonoBehaviour
     private MovementState _ms = MovementState.Static;
     
     private readonly Guid _id = Guid.NewGuid();
+    private float _gameSpeedAmplifier = 1f;
     
     private enum MovementState
     {
         Static,MovingLeft,MovingRight
     }
 
-    private void Start()
+    private void Awake()
     {
         GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().PlayerLandedEvent += OnPlayerLanded;
         GetComponent<OffScreenable>().OffScreenEvent += OnOffScreen;
+        GameSpeed.GS.GameSpeedChangedEvent += OnGameSpeedChanged;
+        _gameSpeedAmplifier = GameSpeed.GS.GetGameSpeed();
     }
 
     private void Update()
@@ -25,6 +28,11 @@ public class GroundMovement : MonoBehaviour
         Move();
     }
 
+    private void OnGameSpeedChanged(float newGameSpeedAmplifier)
+    {
+        _gameSpeedAmplifier = newGameSpeedAmplifier;
+    }
+    
     private void OnPlayerLanded(Guid groundHitID)
     {
         if (groundHitID != _id) return;
@@ -33,15 +41,16 @@ public class GroundMovement : MonoBehaviour
     
     private void Move()
     {
+        var deltaTime = Time.deltaTime * _gameSpeedAmplifier;
         switch (_ms)
         {
             case MovementState.Static:
                 break;
             case MovementState.MovingLeft:
-                transform.position+=Vector3.left * (horizontalSpeed * Time.deltaTime);
+                transform.position+=Vector3.left * (horizontalSpeed * deltaTime);
                 break;
             case MovementState.MovingRight:
-                transform.position+=Vector3.right * (horizontalSpeed * Time.deltaTime);
+                transform.position+=Vector3.right * (horizontalSpeed * deltaTime);
                 break;
         }
     }

@@ -44,5 +44,10 @@ public class LevelSystem : MonoBehaviour
     protected virtual void LevelChanged(int currentLevel)
     {
         LevelChangedEvent?.Invoke(currentLevel);
-    }   
+    }
+
+    public int GetLevel()
+    {
+        return _currentLevel;
+    }
 }

@@ -31,6 +31,7 @@ public class GameSpeed : MonoBehaviour
     private void Start()
     {
         LevelSystem.LS.LevelChangedEvent += OnLevelChanged;
+        OnLevelChanged(LevelSystem.LS.GetLevel());
     }
 
     private void OnLevelChanged(int newLevel)
@@ -42,5 +43,10 @@ public class GameSpeed : MonoBehaviour
     protected virtual void GameSpeedChanged()
     {
         GameSpeedChangedEvent?.Invoke(_gameSpeedAmplifier);
+    }
+
+    public float GetGameSpeed()
+    {
+        return _gameSpeedAmplifier;
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class ScoreSystem : MonoBehaviour
 {
     public static ScoreSystem SS;
-    private int _successfulJumps = 0;
+    public int successfulJumps = 0;
 
     public delegate void EventHandler(int successfulJumps);
 
@@ -42,6 +42,6 @@ public class ScoreSystem : MonoBehaviour
     
     protected virtual void SuccessfulJump()
     {
-        SuccessfulJumpEvent?.Invoke(++_successfulJumps);
+        SuccessfulJumpEvent?.Invoke(++successfulJumps);
     }
 }

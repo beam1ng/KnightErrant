@@ -11,11 +11,13 @@ public class CameraMovement : MonoBehaviour
         player = GameObject.FindWithTag("Player");
     }
 
-    // Update is called once per frame
+
     void Update()
     {
+        if (player == null) return;
         var playerPosition = player.transform.position;
         transform.position =
             new Vector3(playerPosition.x, Math.Max(transform.position.y, playerPosition.y), -10);
     }
+    // Update is called once per frame
 }
