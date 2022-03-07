@@ -15,6 +15,7 @@ public class ScoreSystem : MonoBehaviour
 
     private Guid _lastGroundID;
     private TextMeshProUGUI _scoreText;
+    private TextMeshProUGUI _currentScore;
 
     private void Awake()
     {
@@ -32,7 +33,7 @@ public class ScoreSystem : MonoBehaviour
     {
         GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().PlayerLandedEvent += CheckProgress;
         _scoreText = GameObject.FindWithTag("ScoreText").GetComponent<TextMeshProUGUI>();
-        Debug.Log(_scoreText);
+        _currentScore = GameObject.FindWithTag("CurrentScore").GetComponent<TextMeshProUGUI>();
         UpdateScoreText();
     }
 
@@ -47,12 +48,14 @@ public class ScoreSystem : MonoBehaviour
     
     protected virtual void SuccessfulJump()
     {
-        SuccessfulJumpEvent?.Invoke(++successfulJumps);
+        successfulJumps++;
         UpdateScoreText();
+        SuccessfulJumpEvent?.Invoke(successfulJumps);
     }
 
     private void UpdateScoreText()
     {
         _scoreText.text = successfulJumps.ToString();
+        _currentScore.text = successfulJumps.ToString();
     }
 }

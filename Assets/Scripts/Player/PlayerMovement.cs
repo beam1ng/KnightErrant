@@ -18,6 +18,10 @@ public class PlayerMovement : MonoBehaviour
 
     public delegate void EventHandler(Guid groundHitID);
     public event EventHandler PlayerLandedEvent;
+
+    public delegate void GOEventHandler();
+
+    public event GOEventHandler GameOverEvent;
     
     private float _currentVerticalVelocity = 0f;
     private int _collisionCount = 0;
@@ -159,7 +163,12 @@ public class PlayerMovement : MonoBehaviour
     
     private void OnOffScreen()
     {
-        Debug.Log("Game Over");
+        OnGameOver();
         Destroy(gameObject);
+    }
+
+    protected virtual void OnGameOver()
+    {
+        GameOverEvent?.Invoke();
     }
 }

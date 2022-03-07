@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameSpeed : MonoBehaviour
@@ -14,6 +15,7 @@ public class GameSpeed : MonoBehaviour
     public float speedPerLevel = 0.2f;
 
     private float _gameSpeedAmplifier = 1f;
+    private TextMeshProUGUI _gameSpeedText;
 
 
     private void Awake()
@@ -30,6 +32,7 @@ public class GameSpeed : MonoBehaviour
 
     private void Start()
     {
+        _gameSpeedText = GameObject.FindWithTag("GameSpeedText").GetComponent<TextMeshProUGUI>();
         LevelSystem.LS.LevelChangedEvent += OnLevelChanged;
         OnLevelChanged(LevelSystem.LS.GetLevel());
     }
@@ -38,11 +41,13 @@ public class GameSpeed : MonoBehaviour
     {
         _gameSpeedAmplifier = (1 + speedPerLevel * newLevel);
         GameSpeedChanged();
+        _gameSpeedText.text = "level " + (newLevel+1);
     }
 
     protected virtual void GameSpeedChanged()
     {
         GameSpeedChangedEvent?.Invoke(_gameSpeedAmplifier);
+        
     }
 
     public float GetGameSpeed()
