@@ -7,6 +7,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
@@ -22,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     public delegate void GOEventHandler();
 
     public event GOEventHandler GameOverEvent;
-    
+
     private float _currentVerticalVelocity = 0f;
     private int _collisionCount = 0;
     private float _gameSpeed = 1;
@@ -46,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
         GameSpeed.GS.GameSpeedChangedEvent += GameSpeedChanged;
         _gameSpeed = GameSpeed.GS.GetGameSpeed();
         GetComponent<OffScreenable>().OffScreenEvent += OnOffScreen;
+        GameObject.FindWithTag("ScreenButton").GetComponent<ScreenTouch>().ScreenClickedEvent += JumpFromButton;
     }
 
     private void FixedUpdate()
@@ -149,10 +151,17 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void JumpFromButton()
+    {
+        Debug.Log("tried to jump from button");
+        if (_ps != PlayerState.OnGround) return;
+        _currentVerticalVelocity = _jumpVerticalVelocity;
+    }
+    
     public void Jump(InputAction.CallbackContext ctx)
     {
-        if (_ps != PlayerState.OnGround) return;
         if (!ctx.started) return;
+        if (_ps != PlayerState.OnGround) return;
         _currentVerticalVelocity = _jumpVerticalVelocity;
     }
 

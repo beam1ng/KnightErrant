@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,11 +11,16 @@ public class GroundDeletion : MonoBehaviour
     private float _lifeTimer;
     public bool sh = false;
     // Start is called before the first frame update
+
     void Awake()
     {
-        GameSpeed.GS.GameSpeedChangedEvent += OnGameSpeedChanged;
-        _gameSpeedAmplifier = GameSpeed.GS.GetGameSpeed();
         _lifeTimer = baseLifeDuration;
+    }
+
+    private void Start()
+    {
+        _gameSpeedAmplifier = GameSpeed.GS.GetGameSpeed();
+        GameSpeed.GS.GameSpeedChangedEvent += OnGameSpeedChanged;
     }
 
     // Update is called once per frame

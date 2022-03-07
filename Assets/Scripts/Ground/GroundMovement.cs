@@ -14,7 +14,7 @@ public class GroundMovement : MonoBehaviour
         Static,MovingLeft,MovingRight
     }
 
-    private void Awake()
+    private void Start()
     {
         GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().PlayerLandedEvent += OnPlayerLanded;
         GetComponent<OffScreenable>().OffScreenEvent += OnOffScreen;

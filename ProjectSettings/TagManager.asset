@@ -9,6 +9,7 @@ TagManager:
   - ScoreText
   - CurrentScore
   - GameSpeedText
+  - ScreenButton
   layers:
   - Default
   - TransparentFX

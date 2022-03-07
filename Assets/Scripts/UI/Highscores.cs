@@ -15,19 +15,23 @@ public class Highscores : MonoBehaviour
     public TextMeshProUGUI defaultScoreText;
 
     private GameObject _player;
-    
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
-        _player = GameObject.FindWithTag("Player");
-        _player.GetComponent<PlayerMovement>().GameOverEvent += OnGameOver;
-        ScoreSystem.SS.SuccessfulJumpEvent += OnScoreChanged;
         for (int i = 0; i < 4; i++)
         {
             _highscoreText[i] = Instantiate(defaultScoreText,transform);
         }
 
         _highscoreText[4] = Instantiate(currentScoreText,transform);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        _player = GameObject.FindWithTag("Player");
+        _player.GetComponent<PlayerMovement>().GameOverEvent += OnGameOver;
+        ScoreSystem.SS.SuccessfulJumpEvent += OnScoreChanged;
         CalculateTextHeights();
         LoadHighScores();
     }
@@ -68,13 +72,13 @@ public class Highscores : MonoBehaviour
     {
         var data = _scoreArray.Take(4).ToArray();
         var json = JsonConvert.SerializeObject(data);
-        File.WriteAllText("./Assets/Storage/highscores.json",json);
+        File.WriteAllText(Application.persistentDataPath+"/highscores.json",json);
     }
 
     private void LoadHighScores()
     {
         int[] scoresData;
-        var json = File.ReadAllText("./Assets/Storage/highscores.json");
+        var json = File.ReadAllText(Application.persistentDataPath+"/highscores.json");
         scoresData = JsonConvert.DeserializeObject<int[]>(json);
         if (scoresData == null)
         {
