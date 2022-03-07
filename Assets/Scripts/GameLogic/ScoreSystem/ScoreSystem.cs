@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ScoreSystem : MonoBehaviour
@@ -13,6 +14,7 @@ public class ScoreSystem : MonoBehaviour
     public event EventHandler SuccessfulJumpEvent;
 
     private Guid _lastGroundID;
+    private TextMeshProUGUI _scoreText;
 
     private void Awake()
     {
@@ -29,6 +31,9 @@ public class ScoreSystem : MonoBehaviour
     void Start()
     {
         GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().PlayerLandedEvent += CheckProgress;
+        _scoreText = GameObject.FindWithTag("ScoreText").GetComponent<TextMeshProUGUI>();
+        Debug.Log(_scoreText);
+        UpdateScoreText();
     }
 
     private void CheckProgress(Guid groundHitID)
@@ -43,5 +48,11 @@ public class ScoreSystem : MonoBehaviour
     protected virtual void SuccessfulJump()
     {
         SuccessfulJumpEvent?.Invoke(++successfulJumps);
+        UpdateScoreText();
+    }
+
+    private void UpdateScoreText()
+    {
+        _scoreText.text = successfulJumps.ToString();
     }
 }

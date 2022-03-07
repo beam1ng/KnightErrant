@@ -6,14 +6,15 @@ TagManager:
   tags:
   - Ground
   - GameLogic
+  - ScoreText
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
+  - GroundLayer
   - 
   - 
   - 
