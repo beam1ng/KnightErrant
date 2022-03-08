@@ -47,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
         GameSpeed.GS.GameSpeedChangedEvent += GameSpeedChanged;
         _gameSpeed = GameSpeed.GS.GetGameSpeed();
         GetComponent<OffScreenable>().OffScreenEvent += OnOffScreen;
-        GameObject.FindWithTag("ScreenButton").GetComponent<ScreenTouch>().ScreenClickedEvent += JumpFromButton;
     }
 
     private void FixedUpdate()
@@ -92,7 +91,15 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            transform.position += Vector3.up * _currentVerticalVelocity * deltaTime;
+            RaycastHit2D hit;
+            hit = Physics2D.Raycast(transform.position+Vector3.up* 0.5f, Vector3.up, _currentVerticalVelocity * deltaTime,~(1<<3));
+            if(hit)
+            {
+                transform.position += Vector3.up * hit.distance;
+            }else
+            {
+                transform.position += Vector3.up * _currentVerticalVelocity * deltaTime;
+            }
         }
 
     }
@@ -149,13 +156,6 @@ public class PlayerMovement : MonoBehaviour
             case PlayerAnimationState.Falling:
                 break;
         }
-    }
-
-    public void JumpFromButton()
-    {
-        Debug.Log("tried to jump from button");
-        if (_ps != PlayerState.OnGround) return;
-        _currentVerticalVelocity = _jumpVerticalVelocity;
     }
     
     public void Jump(InputAction.CallbackContext ctx)
