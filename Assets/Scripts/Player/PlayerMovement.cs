@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     public float gravity = 40;
     private float _jumpVerticalVelocity;
 
+    public Animator animator;
+
     public delegate void EventHandler(Guid groundHitID);
     public event EventHandler PlayerLandedEvent;
 
@@ -30,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
     private enum PlayerAnimationState
     {
-        Idle,Standing,Running,Jumping,Falling
+        Idle,Jumping,Falling
     }
 
     private enum PlayerState
@@ -39,7 +41,10 @@ public class PlayerMovement : MonoBehaviour
     }
     
     private PlayerState _ps = PlayerState.InAir;
-    private PlayerAnimationState _pas = PlayerAnimationState.Idle;
+    private static readonly int PlayerOnGround = Animator.StringToHash("PlayerOnGround");
+    private static readonly int PlayerJumping = Animator.StringToHash("PlayerJumping");
+    private static readonly int PlayerFalling = Animator.StringToHash("PlayerFalling");
+    private static readonly int GameSpeedAmplifier = Animator.StringToHash("GameSpeedAmplifier");
 
     private void Start()
     {
@@ -62,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
     private void GameSpeedChanged(float newGameSpeed)
     {
         _gameSpeed = newGameSpeed;
+        animator.SetFloat(GameSpeedAmplifier,newGameSpeed);
     }
 
     private void HandleGravity()
@@ -143,18 +149,26 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandlePlayerAnimation()
     {
-        switch (_pas)
+        if (_ps == PlayerState.InAir)
         {
-            case PlayerAnimationState.Idle:
-                break;
-            case PlayerAnimationState.Standing:
-                break;
-            case PlayerAnimationState.Running:
-                break;
-            case PlayerAnimationState.Jumping:
-                break;
-            case PlayerAnimationState.Falling:
-                break;
+            animator.SetBool(PlayerOnGround,false);
+            if (_currentVerticalVelocity >= 0)
+            {
+                animator.SetBool(PlayerJumping,true);
+                animator.SetBool(PlayerFalling,false);
+            }
+            else
+            {
+                animator.SetBool(PlayerJumping,false);
+                animator.SetBool(PlayerFalling,true);
+            }
+        }
+
+        if (_ps == PlayerState.OnGround)
+        {
+            animator.SetBool(PlayerOnGround,true);
+            animator.SetBool(PlayerJumping,false);
+            animator.SetBool(PlayerFalling,false);
         }
     }
     
