@@ -5,6 +5,7 @@ using System.Linq;
 using System.Numerics;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -172,9 +173,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     
-    public void Jump(InputAction.CallbackContext ctx)
+    public void Jump()
     {
-        if (!ctx.started) return;
         if (_ps != PlayerState.OnGround) return;
         _currentVerticalVelocity = _jumpVerticalVelocity;
     }

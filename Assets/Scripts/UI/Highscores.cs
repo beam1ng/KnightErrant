@@ -6,7 +6,6 @@ using System.Linq;
 using Newtonsoft.Json;
 using TMPro;
 using UnityEngine;
-
 public class Highscores : MonoBehaviour
 {
     private int[] _scoreArray = new int[5]{0,0,0,0,0};
