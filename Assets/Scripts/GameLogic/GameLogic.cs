@@ -7,6 +7,6 @@ public class GameLogic : MonoBehaviour
 {
     private void Awake()
     {
-        DontDestroyOnLoad(this);
+        // DontDestroyOnLoad(this);
     }
 }

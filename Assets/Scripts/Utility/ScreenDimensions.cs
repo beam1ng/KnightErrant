@@ -20,7 +20,7 @@ public sealed class ScreenDimensions : MonoBehaviour
         {
             SD = this;
         }
-        DontDestroyOnLoad(this);
+        // DontDestroyOnLoad(this);
 
         if (Camera.main != null)
         {

@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
@@ -186,12 +187,13 @@ public class PlayerMovement : MonoBehaviour
     
     private void OnOffScreen()
     {
-        OnGameOver();
         Destroy(gameObject);
+        OnGameOver();
     }
 
     protected virtual void OnGameOver()
     {
         GameOverEvent?.Invoke();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
