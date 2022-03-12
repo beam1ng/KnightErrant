@@ -20,6 +20,10 @@ public class PlayerInput : MonoBehaviour
     
     private void HandlePlayerInput()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _player.GetComponent<PlayerMovement>().Jump();
+        }
         for (var index = 0; index < Input.touchCount; index++)
         {
             if (EventSystem.current.IsPointerOverGameObject(Input.touches[index].fingerId)) return;
