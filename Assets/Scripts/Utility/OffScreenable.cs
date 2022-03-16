@@ -4,8 +4,8 @@ using UnityEngine;
 public class OffScreenable : MonoBehaviour
 {
     private Vector2 _objectSize;
-    private bool _appearedInScreenOnce;
-    private bool _offScreenEventInvoked;
+    private bool _appearedInScreenOnce = false;
+    private bool _offScreenEventInvoked = false;
     private GameObject _mainCamera;
     private float _offScreenBuffer = 0f;
     
@@ -21,11 +21,11 @@ public class OffScreenable : MonoBehaviour
     }
     void Update()
     {
-        if (_offScreenEventInvoked) return;
-        if (transform.position.x + _objectSize.x / 2 < -1 * (ScreenDimensions.SD.GetScreenWidth() / 2 +_mainCamera.transform.position.x+_offScreenBuffer)||
+        if (_offScreenEventInvoked) return;//todo: tu są jakieś błędy co trzeba je poprawić
+        if (transform.position.x + _objectSize.x / 2 < -1 * (ScreenDimensions.SD.GetScreenWidth() / 2) +_mainCamera.transform.position.x-_offScreenBuffer||
             transform.position.x - _objectSize.x / 2 > ScreenDimensions.SD.GetScreenWidth() / 2 +_mainCamera.transform.position.x+_offScreenBuffer||
-            transform.position.y - _objectSize.y / 2 < -1 * (ScreenDimensions.SD.GetScreenHeight() / 2 +_mainCamera.transform.position.y+_offScreenBuffer)||
-            transform.position.y + _objectSize.y / 2 > ScreenDimensions.SD.GetScreenHeight() / 2 +_mainCamera.transform.position.y+_offScreenBuffer)
+            transform.position.y + _objectSize.y / 2 < -1 * (ScreenDimensions.SD.GetScreenHeight() / 2) +_mainCamera.transform.position.y-_offScreenBuffer||
+            transform.position.y - _objectSize.y / 2 > ScreenDimensions.SD.GetScreenHeight() / 2 +_mainCamera.transform.position.y+_offScreenBuffer)
         {
             if (_appearedInScreenOnce)
             {
