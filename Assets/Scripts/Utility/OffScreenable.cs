@@ -7,7 +7,7 @@ public class OffScreenable : MonoBehaviour
     private bool _appearedInScreenOnce;
     private bool _offScreenEventInvoked;
     private GameObject _mainCamera;
-    private float _offScreenBuffer = 5f;
+    private float _offScreenBuffer = 0f;
     
     public delegate void EventHandler();
 

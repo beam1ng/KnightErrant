@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Security.Cryptography;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -47,6 +48,9 @@ public class PlayerMovement : MonoBehaviour
     private static readonly int PlayerJumping = Animator.StringToHash("PlayerJumping");
     private static readonly int PlayerFalling = Animator.StringToHash("PlayerFalling");
     private static readonly int GameSpeedAmplifier = Animator.StringToHash("GameSpeedAmplifier");
+
+    public AudioClip JumpAudioClip;
+    public AudioClip DeathAudioClip;
 
     private void Start()
     {
@@ -178,6 +182,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_ps != PlayerState.OnGround) return;
         _currentVerticalVelocity = _jumpVerticalVelocity;
+        GetComponent<AudioSource>().PlayOneShot(JumpAudioClip);
     }
 
     protected virtual void OnPlayerLanded(Guid groundHitID)
@@ -187,13 +192,21 @@ public class PlayerMovement : MonoBehaviour
     
     private void OnOffScreen()
     {
-        Destroy(gameObject);
         OnGameOver();
     }
 
     protected virtual void OnGameOver()
     {
         GameOverEvent?.Invoke();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        GetComponent<AudioSource>().PlayOneShot(DeathAudioClip);
+        IEnumerator ExecuteAfterTime(float time)
+        {
+            yield return new WaitForSeconds(time);
+ 
+            // Code to execute after the delay
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        StartCoroutine(ExecuteAfterTime(0.75f));
+
     }
 }

@@ -37,6 +37,7 @@ public class GroundMovement : MonoBehaviour
     {
         if (groundHitID != _id) return;
         _ms = MovementState.Static;
+        GetComponent<AudioSource>().Play();
     }
     
     private void Move()
