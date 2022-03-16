@@ -21,7 +21,7 @@ public class OffScreenable : MonoBehaviour
     }
     void Update()
     {
-        if (_offScreenEventInvoked) return;//todo: tu są jakieś błędy co trzeba je poprawić
+        if (_offScreenEventInvoked) return;
         if (transform.position.x + _objectSize.x / 2 < -1 * (ScreenDimensions.SD.GetScreenWidth() / 2) +_mainCamera.transform.position.x-_offScreenBuffer||
             transform.position.x - _objectSize.x / 2 > ScreenDimensions.SD.GetScreenWidth() / 2 +_mainCamera.transform.position.x+_offScreenBuffer||
             transform.position.y + _objectSize.y / 2 < -1 * (ScreenDimensions.SD.GetScreenHeight() / 2) +_mainCamera.transform.position.y-_offScreenBuffer||
