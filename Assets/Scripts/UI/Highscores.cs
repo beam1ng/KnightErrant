@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
@@ -9,7 +6,7 @@ using UnityEngine;
 public class Highscores : MonoBehaviour
 {
     private int[] _scoreArray = new int[5]{0,0,0,0,0};
-    private TextMeshProUGUI[] _highscoreText = new TextMeshProUGUI[5];
+    private readonly TextMeshProUGUI[] _highscoreText = new TextMeshProUGUI[5];
     public TextMeshProUGUI currentScoreText;
     public TextMeshProUGUI defaultScoreText;
 
@@ -25,60 +22,29 @@ public class Highscores : MonoBehaviour
         _highscoreText[4] = Instantiate(currentScoreText,transform);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _player = GameObject.FindWithTag("Player");
-        _player.GetComponent<PlayerMovement>().GameOverEvent += OnGameOver;
-        ScoreSystem.SS.SuccessfulJumpEvent += OnScoreChanged;
+
         CalculateTextHeights();
         LoadHighScores();
+        
+        ScoreSystem.SS.SuccessfulJumpEvent += OnScoreChanged;
+        _player.GetComponent<PlayerMovement>().GameOverEvent += OnGameOver;
     }
 
     private void CalculateTextHeights()
     {
-        for (int i = 0; i < 5; i++)
+        for (var i = 0; i < 5; i++)
         {
             _highscoreText[i].transform.localPosition = Vector3.up*(160-i*80);
         }
     }
 
-    // Update is called once per frame
-    void OnScoreChanged(int successfulJumps)
-    {
-        for (var i = 0; i < _highscoreText.Length; i++)
-        {
-            _scoreArray[i] = int.Parse(_highscoreText[i].text);
-        }
-
-        for (int i = 4; i > 0; i--)
-        {
-            if (_scoreArray[i] > _scoreArray[i-1])
-            {
-                (_scoreArray[i], _scoreArray[i - 1]) = (_scoreArray[i - 1], _scoreArray[i]);
-                (_highscoreText[i], _highscoreText[i-1]) = (_highscoreText[i-1], _highscoreText[i]);
-            }
-        }
-        CalculateTextHeights();
-    }
-
-    private void OnGameOver()
-    {
-        SaveHighScores();
-    }
-    
-    private void SaveHighScores()
-    {
-        var data = _scoreArray.Take(4).ToArray();
-        var json = JsonConvert.SerializeObject(data);
-        File.WriteAllText(Application.persistentDataPath+"/highscores.json",json);
-    }
-
     private void LoadHighScores()
     {
-        int[] scoresData;
         var json = File.ReadAllText(Application.persistentDataPath+"/highscores.json");
-        scoresData = JsonConvert.DeserializeObject<int[]>(json);
+        var scoresData = JsonConvert.DeserializeObject<int[]>(json);
         if (scoresData == null)
         {
             _scoreArray = new[] {0, 0, 0, 0, 0};
@@ -93,5 +59,33 @@ public class Highscores : MonoBehaviour
         {
             _highscoreText[i].text = _scoreArray[i].ToString();
         }
+    }
+
+    private void OnScoreChanged(int successfulJumps)
+    {
+        for (var i = 0; i < _highscoreText.Length; i++)
+        {
+            _scoreArray[i] = int.Parse(_highscoreText[i].text);
+        }
+
+        for (var i = 4; i > 0; i--)
+        {
+            if (_scoreArray[i] <= _scoreArray[i - 1]) continue;
+            (_scoreArray[i], _scoreArray[i - 1]) = (_scoreArray[i - 1], _scoreArray[i]);
+            (_highscoreText[i], _highscoreText[i-1]) = (_highscoreText[i-1], _highscoreText[i]);
+        }
+        CalculateTextHeights();
+    }
+
+    private void OnGameOver()
+    {
+        SaveHighScores();
+    }
+
+    private void SaveHighScores()
+    {
+        var data = _scoreArray.Take(4).ToArray();
+        var json = JsonConvert.SerializeObject(data);
+        File.WriteAllText(Application.persistentDataPath+"/highscores.json",json);
     }
 }

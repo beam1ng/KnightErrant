@@ -1,18 +1,14 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class ScoreSystem : MonoBehaviour
 {
     public static ScoreSystem SS;
-    public int successfulJumps = 0;
-
+    public int successfulJumps;
     public delegate void EventHandler(int successfulJumps);
-
     public event EventHandler SuccessfulJumpEvent;
-
+    
     private Guid _lastGroundID;
     private TextMeshProUGUI _scoreText;
     private TextMeshProUGUI _currentScore;
@@ -21,7 +17,7 @@ public class ScoreSystem : MonoBehaviour
     {
         if (SS != null)
         {
-            GameObject.Destroy(this);
+            Destroy(this);
         }
         else
         {
@@ -39,14 +35,12 @@ public class ScoreSystem : MonoBehaviour
 
     private void CheckProgress(Guid groundHitID)
     {
-        if (_lastGroundID != groundHitID)
-        {
-            SuccessfulJump();
-            _lastGroundID = groundHitID;
-        }
+        if (_lastGroundID == groundHitID) return;
+        SuccessfulJump();
+        _lastGroundID = groundHitID;
     }
     
-    protected virtual void SuccessfulJump()
+    private void SuccessfulJump()
     {
         successfulJumps++;
         UpdateScoreText();

@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RandomHandler : MonoBehaviour
 {
     public static RandomHandler RH;
     public System.Random Random;
-    
-    void Start()
+
+    private void Start()
     {
         if (RH != null)
         {
-            GameObject.Destroy(this);
+            Destroy(this);
         }
         else
         {

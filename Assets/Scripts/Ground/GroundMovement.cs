@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class GroundMovement : MonoBehaviour
 {
-    public float horizontalSpeed = 1f;
-    private MovementState _ms = MovementState.Static;
+    public float horizontalSpeed = 6f;
+    public AudioClip landedOnGroundAudioClip;
     
+    private MovementState _ms = MovementState.Static;
     private readonly Guid _id = Guid.NewGuid();
     private float _gameSpeedAmplifier = 1f;
     
@@ -24,7 +25,6 @@ public class GroundMovement : MonoBehaviour
 
     private void Update()
     {
-        if (_ms == MovementState.Static) return;
         Move();
     }
 
@@ -37,7 +37,7 @@ public class GroundMovement : MonoBehaviour
     {
         if (groundHitID != _id) return;
         _ms = MovementState.Static;
-        GetComponent<AudioSource>().Play();
+        GetComponent<AudioSource>().PlayOneShot(landedOnGroundAudioClip);
     }
     
     private void Move()
@@ -56,9 +56,9 @@ public class GroundMovement : MonoBehaviour
         }
     }
 
-    public Guid GetID()
+    private void OnOffScreen()
     {
-        return _id;
+        Destroy(gameObject);
     }
 
     public void SetInitialMovement()
@@ -75,8 +75,8 @@ public class GroundMovement : MonoBehaviour
         }
     }
 
-    private void OnOffScreen()
+    public Guid GetID()
     {
-        Destroy(gameObject);
+        return _id;
     }
 }

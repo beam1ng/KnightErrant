@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public sealed class ScreenDimensions : MonoBehaviour
@@ -8,26 +6,22 @@ public sealed class ScreenDimensions : MonoBehaviour
     
     private float _screenWidth;
     private float _screenHeight;
-    
-    // Start is called before the first frame update
-    void Awake()
+
+    private void Awake()
     {
         if (SD != null)
         {
-            GameObject.Destroy(SD);
+            Destroy(SD);
         }
         else
         {
             SD = this;
         }
-        // DontDestroyOnLoad(this);
 
-        if (Camera.main != null)
-        {
-            var orthographicSize = Camera.main.orthographicSize;
-            _screenHeight = orthographicSize * 2;
-            _screenWidth = orthographicSize * 2 / Screen.height * Screen.width;
-        }
+        if (Camera.main == null) return;
+        var orthographicSize = Camera.main.orthographicSize;
+        _screenHeight = orthographicSize * 2;
+        _screenWidth = orthographicSize * 2 / Screen.height * Screen.width;
     }
 
     public float GetScreenWidth()

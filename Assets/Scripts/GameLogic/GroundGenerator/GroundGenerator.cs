@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class GroundGenerator : MonoBehaviour
 {
@@ -13,8 +11,8 @@ public class GroundGenerator : MonoBehaviour
 
     void Start()
     {
-        ScoreSystem.SS.SuccessfulJumpEvent += InstantiateGround;
         _groundQueue.Enqueue(firstGround);
+        ScoreSystem.SS.SuccessfulJumpEvent += InstantiateGround;
     }
 
     private void InstantiateGround(int e)

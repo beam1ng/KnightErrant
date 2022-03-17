@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horizontalSpeed: 4
+  landedOnGroundAudioClip: {fileID: 8300000, guid: 07e9430263094f3418b6e017c5c04be5, type: 3}
 --- !u!114 &5497903008811200179
 MonoBehaviour:
   m_ObjectHideFlags: 0
