@@ -1,16 +1,17 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GroundMovement : MonoBehaviour
 {
     public float horizontalSpeed = 6f;
     public AudioClip landedOnGroundAudioClip;
     
-    private MovementState _ms = MovementState.Static;
+    [FormerlySerializedAs("_ms")] public MovementState ms = MovementState.Static;
     private readonly Guid _id = Guid.NewGuid();
     private float _gameSpeedAmplifier = 1f;
     
-    private enum MovementState
+    public enum MovementState
     {
         Static,MovingLeft,MovingRight
     }
@@ -36,14 +37,14 @@ public class GroundMovement : MonoBehaviour
     private void OnPlayerLanded(Guid groundHitID)
     {
         if (groundHitID != _id) return;
-        _ms = MovementState.Static;
+        ms = MovementState.Static;
         GetComponent<AudioSource>().PlayOneShot(landedOnGroundAudioClip);
     }
     
     private void Move()
     {
         var deltaTime = Time.deltaTime * _gameSpeedAmplifier;
-        switch (_ms)
+        switch (ms)
         {
             case MovementState.Static:
                 break;
@@ -66,12 +67,12 @@ public class GroundMovement : MonoBehaviour
         if (RandomHandler.RH.Random.Next(0, 2) == 0)
         {
             transform.position+=Vector3.right*ScreenDimensions.SD.GetScreenWidth()/2;
-            _ms = MovementState.MovingLeft;
+            ms = MovementState.MovingLeft;
         }
         else
         {
             transform.position+=Vector3.left*ScreenDimensions.SD.GetScreenWidth()/2;
-            _ms = MovementState.MovingRight;
+            ms = MovementState.MovingRight;
         }
     }
 
