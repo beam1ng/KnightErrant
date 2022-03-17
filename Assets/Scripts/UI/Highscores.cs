@@ -43,6 +43,10 @@ public class Highscores : MonoBehaviour
 
     private void LoadHighScores()
     {
+        if (!File.Exists(Application.persistentDataPath + "/highscores.json"))
+        {
+            File.Create(Application.persistentDataPath + "/highscores.json");
+        }
         var json = File.ReadAllText(Application.persistentDataPath+"/highscores.json");
         var scoresData = JsonConvert.DeserializeObject<int[]>(json);
         if (scoresData == null)
