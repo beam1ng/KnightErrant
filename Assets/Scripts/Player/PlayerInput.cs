@@ -24,8 +24,10 @@ public class PlayerInput : MonoBehaviour
         for (var index = 0; index < Input.touchCount; index++)
         {
             if (EventSystem.current.IsPointerOverGameObject(Input.touches[index].fingerId)) continue;
+            if (Input.touches[index].phase != TouchPhase.Began) continue;
             _player.GetComponent<PlayerMovement>().Jump();
             break;
+
         }
     }
 }

@@ -182,7 +182,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void Jump()//todo: this code is vulnerable to multiple executions at the same time
+    public void Jump()
     {
         if (_ps != PlayerState.OnGround) return;
         _currentVerticalVelocity = _jumpVerticalVelocity;
