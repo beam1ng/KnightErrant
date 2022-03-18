@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 public class ScoreSystem : MonoBehaviour
@@ -8,7 +9,8 @@ public class ScoreSystem : MonoBehaviour
     public int successfulJumps;
     public delegate void EventHandler(int successfulJumps);
     public event EventHandler SuccessfulJumpEvent;
-    
+    public GameObject initialGround;
+
     private Guid _lastGroundID;
     private TextMeshProUGUI _scoreText;
     private TextMeshProUGUI _currentScore;
@@ -23,6 +25,8 @@ public class ScoreSystem : MonoBehaviour
         {
             SS = this;
         }
+
+        _lastGroundID = initialGround.GetComponent<GroundMovement>().GetID();
     }
 
     void Start()

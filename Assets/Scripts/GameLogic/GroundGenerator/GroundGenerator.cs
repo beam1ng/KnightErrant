@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ public class GroundGenerator : MonoBehaviour
     {
         _groundQueue.Enqueue(firstGround);
         ScoreSystem.SS.SuccessfulJumpEvent += InstantiateGround;
+        InstantiateGround(0);
     }
 
     private void InstantiateGround(int e)

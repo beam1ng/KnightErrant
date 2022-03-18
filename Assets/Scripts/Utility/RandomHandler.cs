@@ -5,7 +5,7 @@ public class RandomHandler : MonoBehaviour
     public static RandomHandler RH;
     public System.Random Random;
 
-    private void Start()
+    private void Awake()
     {
         if (RH != null)
         {

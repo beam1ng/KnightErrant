@@ -199,6 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96a87e9be21c2f4468ccdeb8c2d480b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  followPlayerXPosition: 1
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -812,7 +813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c24960d0ee9e34188426579a128908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxScore: 50
+  maxScore: 5
 --- !u!1 &1721016397
 GameObject:
   m_ObjectHideFlags: 0
@@ -1122,7 +1123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5497903008811200179, guid: 9bd813bfb2872d74bb8a422c8ab54def, type: 3}
       propertyPath: baseLifeDuration
-      value: 7
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5497903008811200180, guid: 9bd813bfb2872d74bb8a422c8ab54def, type: 3}
       propertyPath: m_RootOrder
@@ -1134,7 +1135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5497903008811200180, guid: 9bd813bfb2872d74bb8a422c8ab54def, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5497903008811200180, guid: 9bd813bfb2872d74bb8a422c8ab54def, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1274,6 +1275,10 @@ PrefabInstance:
       propertyPath: gameSpeedAmplifier
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3795371391026066564, guid: 9ec7a5f7c772a0246a3d8d893baff0fc, type: 3}
+      propertyPath: initialGround
+      value: 
+      objectReference: {fileID: 734638894}
     - target: {fileID: 3795371391026066564, guid: 9ec7a5f7c772a0246a3d8d893baff0fc, type: 3}
       propertyPath: successfulJumps
       value: 0

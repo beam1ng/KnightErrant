@@ -4,8 +4,7 @@ using UnityEngine;
 public class GroundDeletion : MonoBehaviour
 {
     public float baseLifeDuration = 5f;
-    public bool sh;
-
+    
     private GameObject _player;
     private float _gameSpeedAmplifier = 1f;
     private float _lifeTimer;
