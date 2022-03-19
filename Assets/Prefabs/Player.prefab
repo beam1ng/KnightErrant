@@ -146,8 +146,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 232e2b7892f03ef45af22aaa6759085e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpHeight: 3.5
+  jumpHeight: 4
   gravity: 35
+  sideHitHorizontalVelocity: 3
+  animator: {fileID: 0}
+  JumpAudioClip: {fileID: 0}
+  DeathAudioClip: {fileID: 0}
 --- !u!114 &7068875314460473391
 MonoBehaviour:
   m_ObjectHideFlags: 0

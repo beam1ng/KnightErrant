@@ -5,16 +5,20 @@ using UnityEngine;
 public class GroundGenerator : MonoBehaviour
 {
     public float interGroundDistance = 3f;
+    public int activeGroundInstances = 3;
     public GameObject groundPrefab;
     public GameObject firstGround;
 
     private Queue<GameObject> _groundQueue = new Queue<GameObject>();
 
-    void Start()
+    private void Start()
     {
         _groundQueue.Enqueue(firstGround);
         ScoreSystem.SS.SuccessfulJumpEvent += InstantiateGround;
-        InstantiateGround(0);
+        for (var i = 0; i < activeGroundInstances; i++)
+        {
+            InstantiateGround(0);
+        }
     }
 
     private void InstantiateGround(int e)
