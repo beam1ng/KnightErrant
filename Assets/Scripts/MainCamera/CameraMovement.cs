@@ -7,16 +7,22 @@ public class CameraMovement : MonoBehaviour
     
     private GameObject _player;
 
-    void Start()
+    private void Start()
     {
         _player = GameObject.FindWithTag("Player");
+        _player.GetComponent<PlayerMovement>().SideHitEvent += OnPlayerSideHit;
     }
 
-    void Update()
+    private void Update()
     {
         if (_player == null) return;
         var playerPosition = _player.transform.position;
         transform.position =
             new Vector3(followPlayerXPosition? playerPosition.x:transform.position.x, Math.Max(transform.position.y, playerPosition.y), -10);
+    }
+
+    private void OnPlayerSideHit()
+    {
+        followPlayerXPosition = false;
     }
 }

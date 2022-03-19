@@ -1214,6 +1214,10 @@ PrefabInstance:
       propertyPath: DeathAudioClip
       value: 
       objectReference: {fileID: 8300000, guid: 57237c0cad307264eab16eacbda19d3a, type: 3}
+    - target: {fileID: 5654293577368926405, guid: 44f0e36de58f93e419fdbc43594f48ad, type: 3}
+      propertyPath: sideHitHorizontalVelocity
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5654293577368926407, guid: 44f0e36de58f93e419fdbc43594f48ad, type: 3}
       propertyPath: m_RootOrder
       value: 3

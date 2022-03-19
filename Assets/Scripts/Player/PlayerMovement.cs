@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Vector2 = UnityEngine.Vector2;
@@ -10,16 +11,19 @@ public class PlayerMovement : MonoBehaviour
 {
     public float jumpHeight = 3.5f;
     public float gravity = 40;
+    public float sideHitHorizontalVelocity = 7;
     public Animator animator;
     public AudioClip JumpAudioClip;
     public AudioClip DeathAudioClip;
     public delegate void EventHandler(Guid groundHitID);
     public event EventHandler PlayerLandedEvent;
-    public delegate void GameOverEventHandler();
-    public event GameOverEventHandler GameOverEvent;
+    public delegate void EventHandler2();
+    public event EventHandler2 GameOverEvent;
+    public event EventHandler2 SideHitEvent;
 
     private float _jumpVerticalVelocity;
-    private float _currentVerticalVelocity;
+    private float _currentVerticalVelocity = 0;
+    private float _currentHorizontalVelocity = 0;
     private int _collisionCount;
     private float _gameSpeed = 1;
     private PlayerState _ps = PlayerState.InAir;
@@ -78,6 +82,9 @@ public class PlayerMovement : MonoBehaviour
     private void HandleGravity()
     {
         var deltaTime = Time.deltaTime * _gameSpeed;
+        var position = transform.position;
+        transform.position = new Vector3(position.x + _currentHorizontalVelocity * deltaTime,
+            position.y, position.z);
         switch (_ps)
         {
             case PlayerState.OnGround:
@@ -152,10 +159,19 @@ public class PlayerMovement : MonoBehaviour
         var contacts = new ContactPoint2D[col.contactCount];
         col.GetContacts(contacts);
         
-        //todo eject player sideways onGroundSideTouch
         if (contacts.Any(contact => Vector2.Angle(contact.normal, Vector2.down) < 45f))//headbutt
         {
             _currentVerticalVelocity = 0;
+        }
+        else if (contacts.Any(contact => Vector2.Angle(contact.normal, Vector2.left) < 45f))//rightside
+        {
+            _currentHorizontalVelocity = -sideHitHorizontalVelocity;
+            OnSideHitEvent();
+        }
+        else if (contacts.Any(contact => Vector2.Angle(contact.normal, Vector2.right) < 45f))//leftside
+        {
+            _currentHorizontalVelocity = sideHitHorizontalVelocity;
+            OnSideHitEvent();
         }
         else if (contacts.Any(contact => Vector2.Angle(contact.normal, Vector2.up) < 45f))//land
         {
@@ -187,5 +203,10 @@ public class PlayerMovement : MonoBehaviour
         if (_ps != PlayerState.OnGround) return;
         _currentVerticalVelocity = _jumpVerticalVelocity;
         GetComponent<AudioSource>().PlayOneShot(JumpAudioClip);
+    }
+
+    protected virtual void OnSideHitEvent()
+    {
+        SideHitEvent?.Invoke();
     }
 }
