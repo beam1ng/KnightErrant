@@ -157,7 +157,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500150bcabb4d564f851ab63de0451f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interGroundDistance: 3
+  interGroundDistance: 3.5
+  activeGroundInstances: 2
   groundPrefab: {fileID: 5497903008811200168, guid: 9bd813bfb2872d74bb8a422c8ab54def, type: 3}
   firstGround: {fileID: 734638894}
 --- !u!1 &519420028
@@ -1204,7 +1205,7 @@ PrefabInstance:
       objectReference: {fileID: 786270585}
     - target: {fileID: 5654293577368926405, guid: 44f0e36de58f93e419fdbc43594f48ad, type: 3}
       propertyPath: jumpHeight
-      value: 3.5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5654293577368926405, guid: 44f0e36de58f93e419fdbc43594f48ad, type: 3}
       propertyPath: JumpAudioClip
