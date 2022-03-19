@@ -1,4 +1,5 @@
 using System;
+using GameLogic.ThemeSystem;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
@@ -16,6 +17,7 @@ public class BackgroundMovement : MonoBehaviour
     {
         _camera = GameObject.FindWithTag("MainCamera");
         var groundGenerator = GameObject.FindWithTag("GroundGenerator").GetComponent<GroundGenerator>();
+        ThemeSystem.TS.ThemeChangedEvent += OnThemeChanged;
         var sprite = GetComponent<SpriteRenderer>().sprite;
         
         var calculatedScale = ScreenDimensions.SD.GetScreenWidth() * sprite.pixelsPerUnit / sprite.texture.width;
@@ -33,8 +35,9 @@ public class BackgroundMovement : MonoBehaviour
         
         transform.localPosition = new Vector3(0, _backgroundStartingLocalY, 1);
     }
-    
-    void Update()
+
+
+    private void Update()
     {
         if (_camera == null) return;
         var cameraPosition = _camera.transform.position;
@@ -45,5 +48,10 @@ public class BackgroundMovement : MonoBehaviour
     private float CalculateBackgroundLocalPositionY(float cameraY)
     {
         return (cameraY - _cameraStartingY) / (_cameraEndingY - _cameraStartingY) * (_backgroundEndingLocalY-_backgroundStartingLocalY) + _backgroundStartingLocalY;
+    }
+
+    private void OnThemeChanged(Theme newTheme)
+    {
+        GetComponent<SpriteRenderer>().sprite = newTheme.BackgroundSprite;
     }
 }

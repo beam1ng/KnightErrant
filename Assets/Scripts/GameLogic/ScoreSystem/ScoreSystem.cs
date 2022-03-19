@@ -1,6 +1,5 @@
 using System;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 
 public class ScoreSystem : MonoBehaviour
@@ -29,7 +28,7 @@ public class ScoreSystem : MonoBehaviour
         _lastGroundID = initialGround.GetComponent<GroundMovement>().GetID();
     }
 
-    void Start()
+    private void Start()
     {
         GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().PlayerLandedEvent += CheckProgress;
         _scoreText = GameObject.FindWithTag("ScoreText").GetComponent<TextMeshProUGUI>();
