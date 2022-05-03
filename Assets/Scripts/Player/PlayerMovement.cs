@@ -9,7 +9,7 @@ using Vector3 = UnityEngine.Vector3;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float jumpHeight = 3.5f;
+    [SerializeField] public float jumpHeight = 3.5f;
     [SerializeField] private float gravity = 40;
     [SerializeField] private float sideHitHorizontalVelocity = 7;
     [SerializeField] private Animator animator;

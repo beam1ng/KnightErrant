@@ -10,6 +10,8 @@ public class ThemeSystem : MonoBehaviour
     [SerializeField] private Sprite jungleBackground;
     [SerializeField] private Sprite mountainPlatform;
     [SerializeField] private Sprite mountainBackground;
+    [SerializeField] private Sprite spacePlatform;
+    [SerializeField] private Sprite spaceBackground;
     public delegate void EventHandler(Theme newTheme);
     public event EventHandler ThemeChangedEvent;
 
@@ -30,8 +32,9 @@ public class ThemeSystem : MonoBehaviour
     
     private void Start()
     {
-        _themeQueue.Enqueue(new Theme("jungleTheme",junglePlatform,jungleBackground,(0,2)));//todo: calculate backgroundScrollingMaxscore somewhere
-        _themeQueue.Enqueue(new Theme("mountainTheme",junglePlatform,jungleBackground,(3,50)));
+        _themeQueue.Enqueue(new Theme("jungleTheme",junglePlatform,jungleBackground,(0,1)));
+        _themeQueue.Enqueue(new Theme("mountainTheme",mountainPlatform,mountainBackground,(2,3)));
+        _themeQueue.Enqueue(new Theme("spaceTheme",spacePlatform,spaceBackground,(4,50)));
         _currentTheme = _themeQueue.Peek();
         LevelSystem.LS.LevelChangedEvent += OnLevelChanged;
         ThemeChanged(_currentTheme);

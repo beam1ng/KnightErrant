@@ -5,8 +5,7 @@ using Vector3 = UnityEngine.Vector3;
 
 public class BackgroundMovement : MonoBehaviour
 {
-    [SerializeField] private int maxScore=50;
-    
+    [SerializeField] private PlayerMovement _playerMovement;
     private GameObject _camera;
     private float _backgroundStartingLocalY;
     private float _backgroundEndingLocalY;
@@ -43,7 +42,7 @@ public class BackgroundMovement : MonoBehaviour
         _backgroundEndingLocalY = (-calculatedHeightInUnits / 2 + ScreenDimensions.SD.GetScreenHeight() / 2);
 
         _cameraStartingY = _camera.transform.position.y;
-        _cameraEndingY = GroundGenerator.GG.GetInterGroundDistance() * (_currentTheme.LevelBounds.maxLevel-_currentTheme.LevelBounds.minLevel) * LevelSystem.LS.GetJumpsPerLevel() + _cameraStartingY;
+        _cameraEndingY = GroundGenerator.GG.GetInterGroundDistance() * ((_currentTheme.LevelBounds.maxLevel-_currentTheme.LevelBounds.minLevel+1) * LevelSystem.LS.GetJumpsPerLevel()-1) + _playerMovement.jumpHeight + _cameraStartingY;
         
         transform.localPosition = new Vector3(0, _backgroundStartingLocalY, 1);
     }
@@ -55,7 +54,6 @@ public class BackgroundMovement : MonoBehaviour
     
     private void OnThemeChanged(Theme newTheme)
     {
-        Debug.Log("THEME CHANGED");
         _currentTheme = newTheme;
         GetComponent<SpriteRenderer>().sprite = newTheme.BackgroundSprite;
         CalculateBackgroundBounds();
