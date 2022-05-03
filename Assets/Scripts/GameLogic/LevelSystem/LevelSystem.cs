@@ -44,4 +44,9 @@ public class LevelSystem : MonoBehaviour
     {
         return _currentLevel;
     }
+
+    public int GetJumpsPerLevel()
+    {
+        return jumpsPerLevel;
+    }
 }

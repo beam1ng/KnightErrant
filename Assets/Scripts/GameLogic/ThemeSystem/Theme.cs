@@ -6,20 +6,20 @@ namespace GameLogic.ThemeSystem
     {
         public Theme(string themeName, Sprite platformSprite, Sprite backgroundSprite, (int, int) levelBounds)
         {
-            this._themeName = themeName;
-            this._platformSprite = platformSprite;
-            this.BackgroundSprite = backgroundSprite;
-            this._levelBounds = levelBounds;
+            _themeName = themeName;
+            _platformSprite = platformSprite;
+            BackgroundSprite = backgroundSprite;
+            LevelBounds = levelBounds;
         }
 
         private string _themeName;
         private Sprite _platformSprite;
         public Sprite BackgroundSprite { get; set; }
-        private readonly (int,int) _levelBounds;
+        public (int minLevel,int maxLevel) LevelBounds { get; }
 
         public bool OutOfLevelBounds(int newLevel)
         {
-            return newLevel > _levelBounds.Item2;
+            return newLevel > LevelBounds.maxLevel;
         }
     }
 }
