@@ -5,7 +5,8 @@ using UnityEngine;
 public class ScoreSystem : MonoBehaviour
 {
     public static ScoreSystem SS;
-    public int successfulJumps;
+
+    private int _successfulJumps;
     public delegate void EventHandler(int successfulJumps);
     public event EventHandler SuccessfulJumpEvent;
     public GameObject initialGround;
@@ -45,14 +46,14 @@ public class ScoreSystem : MonoBehaviour
     
     private void SuccessfulJump()
     {
-        successfulJumps++;
+        _successfulJumps++;
         UpdateScoreText();
-        SuccessfulJumpEvent?.Invoke(successfulJumps);
+        SuccessfulJumpEvent?.Invoke(_successfulJumps);
     }
 
     private void UpdateScoreText()
     {
-        _scoreText.text = successfulJumps.ToString();
-        _currentScore.text = successfulJumps.ToString();
+        _scoreText.text = _successfulJumps.ToString();
+        _currentScore.text = _successfulJumps.ToString();
     }
 }

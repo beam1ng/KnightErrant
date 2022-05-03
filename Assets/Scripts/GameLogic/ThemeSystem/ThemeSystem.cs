@@ -5,8 +5,9 @@ using UnityEngine;
 public class ThemeSystem : MonoBehaviour
 {
     public static ThemeSystem TS;
-    public Sprite junglePlatform;
-    public Sprite jungleBackground;
+    
+    [SerializeField] private Sprite junglePlatform;
+    [SerializeField] private Sprite jungleBackground;
     public delegate void EventHandler(Theme newTheme);
     public event EventHandler ThemeChangedEvent;
 

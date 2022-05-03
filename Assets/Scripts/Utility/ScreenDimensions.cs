@@ -3,7 +3,6 @@ using UnityEngine;
 public sealed class ScreenDimensions : MonoBehaviour
 {
     public static ScreenDimensions SD;
-    
     private float _screenWidth;
     private float _screenHeight;
 

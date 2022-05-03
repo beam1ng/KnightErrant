@@ -3,7 +3,8 @@ using UnityEngine;
 public class LevelSystem : MonoBehaviour
 {
     public static LevelSystem LS;
-    public int jumpsPerLevel = 5;
+    
+    [SerializeField] private int jumpsPerLevel = 5;
     public delegate void EventHandler(int currentLevel);
     public event EventHandler LevelChangedEvent;
     

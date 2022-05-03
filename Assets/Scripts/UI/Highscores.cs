@@ -7,8 +7,8 @@ public class Highscores : MonoBehaviour
 {
     private int[] _scoreArray = new int[5]{0,0,0,0,0};
     private readonly TextMeshProUGUI[] _highscoreText = new TextMeshProUGUI[5];
-    public TextMeshProUGUI currentScoreText;
-    public TextMeshProUGUI defaultScoreText;
+    [SerializeField] private TextMeshProUGUI currentScoreText;
+    [SerializeField] private TextMeshProUGUI defaultScoreText;
 
     private GameObject _player;
 

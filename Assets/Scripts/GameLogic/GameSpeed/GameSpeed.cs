@@ -4,7 +4,8 @@ using UnityEngine;
 public class GameSpeed : MonoBehaviour
 {
     public static GameSpeed GS;
-    public float speedPerLevel = 0.2f;
+    
+    [SerializeField] private float speedPerLevel = 0.2f;
 
     public delegate void EventHandler(float newGameSpeed);
     public event EventHandler GameSpeedChangedEvent;

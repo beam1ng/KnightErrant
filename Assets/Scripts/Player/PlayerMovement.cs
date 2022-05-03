@@ -9,12 +9,12 @@ using Vector3 = UnityEngine.Vector3;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float jumpHeight = 3.5f;
-    public float gravity = 40;
-    public float sideHitHorizontalVelocity = 7;
-    public Animator animator;
-    public AudioClip JumpAudioClip;
-    public AudioClip DeathAudioClip;
+    [SerializeField] private float jumpHeight = 3.5f;
+    [SerializeField] private float gravity = 40;
+    [SerializeField] private float sideHitHorizontalVelocity = 7;
+    [SerializeField] private Animator animator;
+    [SerializeField] private AudioClip jumpAudioClip;
+    [SerializeField] private AudioClip deathAudioClip;
     public delegate void EventHandler(Guid groundHitID);
     public event EventHandler PlayerLandedEvent;
     public delegate void EventHandler2();
@@ -70,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
     protected virtual void OnGameOver()
     {
         GameOverEvent?.Invoke();
-        GetComponent<AudioSource>().PlayOneShot(DeathAudioClip);
+        GetComponent<AudioSource>().PlayOneShot(deathAudioClip);
         StartCoroutine(ExecuteAfterTime(0.75f));
         IEnumerator ExecuteAfterTime(float time)
         {
@@ -202,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_ps != PlayerState.OnGround) return;
         _currentVerticalVelocity = _jumpVerticalVelocity;
-        GetComponent<AudioSource>().PlayOneShot(JumpAudioClip);
+        GetComponent<AudioSource>().PlayOneShot(jumpAudioClip);
     }
 
     protected virtual void OnSideHitEvent()

@@ -4,13 +4,26 @@ using UnityEngine;
 
 public class GroundGenerator : MonoBehaviour
 {
-    public float interGroundDistance = 3f;
-    public int activeGroundInstances = 3;
-    public GameObject groundPrefab;
-    public GameObject firstGround;
+    public static GroundGenerator GG;
+    [SerializeField] private float interGroundDistance = 3f;
+    [SerializeField] private int activeGroundInstances = 3;
+    [SerializeField] private GameObject groundPrefab;
+    [SerializeField] private GameObject firstGround;
 
-    private Queue<GameObject> _groundQueue = new Queue<GameObject>();
+    private readonly Queue<GameObject> _groundQueue = new Queue<GameObject>();
 
+    private void Awake()
+    {
+        if (GG != null)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            GG = this;
+        }
+    }
+    
     private void Start()
     {
         _groundQueue.Enqueue(firstGround);
@@ -28,5 +41,10 @@ public class GroundGenerator : MonoBehaviour
         _groundQueue.Enqueue(newGround);
         newGround.transform.position = oldGround.transform.position+Vector3.up*interGroundDistance;
         newGround.GetComponent<GroundMovement>().SetInitialMovement();
+    }
+
+    public float GetInterGroundDistance()
+    {
+        return interGroundDistance;
     }
 }

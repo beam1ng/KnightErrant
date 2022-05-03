@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    public bool followPlayerXPosition = true;
+    [SerializeField] private bool followPlayerXPosition = true;
     
     private GameObject _player;
 

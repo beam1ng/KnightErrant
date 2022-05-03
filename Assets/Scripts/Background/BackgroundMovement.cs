@@ -5,7 +5,7 @@ using Vector3 = UnityEngine.Vector3;
 
 public class BackgroundMovement : MonoBehaviour
 {
-    public int maxScore=50;
+    [SerializeField] private int maxScore=50;
     
     private GameObject _camera;
     private float _backgroundStartingLocalY;
@@ -16,7 +16,6 @@ public class BackgroundMovement : MonoBehaviour
     void Start()
     {
         _camera = GameObject.FindWithTag("MainCamera");
-        var groundGenerator = GameObject.FindWithTag("GroundGenerator").GetComponent<GroundGenerator>();
         ThemeSystem.TS.ThemeChangedEvent += OnThemeChanged;
         var sprite = GetComponent<SpriteRenderer>().sprite;
         
@@ -31,7 +30,7 @@ public class BackgroundMovement : MonoBehaviour
         _backgroundEndingLocalY = (-calculatedHeightInUnits / 2 + ScreenDimensions.SD.GetScreenHeight() / 2);
 
         _cameraStartingY = 0.0f;
-        _cameraEndingY = groundGenerator.interGroundDistance * maxScore - _cameraStartingY;
+        _cameraEndingY = GroundGenerator.GG.GetInterGroundDistance() * maxScore - _cameraStartingY;
         
         transform.localPosition = new Vector3(0, _backgroundStartingLocalY, 1);
     }

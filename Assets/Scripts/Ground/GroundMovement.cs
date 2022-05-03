@@ -1,14 +1,13 @@
 using System;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class GroundMovement : MonoBehaviour
 {
-    public float horizontalSpeed = 6f;
-    public AudioClip landedOnGroundAudioClip;
-    public float sinusoidalMovementOffset = 4;
-    public float sinusoidalMovementPeriod = 4;
+    [SerializeField] private float horizontalSpeed = 6f;
+    [SerializeField] private AudioClip landedOnGroundAudioClip;
+    [SerializeField] private float sinusoidalMovementOffset = 4;
+    [SerializeField] private float sinusoidalMovementPeriod = 4;
     
     [FormerlySerializedAs("_ms")] public MovementState ms = MovementState.Static;
     private readonly Guid _id = Guid.NewGuid();
@@ -61,7 +60,7 @@ public class GroundMovement : MonoBehaviour
             case MovementState.MovingSinusoidally:
                 _sinusoidalMovementPhase += deltaTime;
                 var position = transform.position;
-                transform.position = new Vector3(sinusoidalMovementOffset * math.cos(_sinusoidalMovementPhase*2*math.PI /sinusoidalMovementPeriod),position.y,position.z);
+                transform.position = new Vector3(sinusoidalMovementOffset * Mathf.Cos(_sinusoidalMovementPhase*2*Mathf.PI /sinusoidalMovementPeriod),position.y,position.z);
                 break;
                 
         }
