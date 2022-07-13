@@ -214,11 +214,15 @@ PrefabInstance:
     - target: {fileID: 9120784200182607211, guid: 9ec7a5f7c772a0246a3d8d893baff0fc, type: 3}
       propertyPath: spacePlatform
       value: 
-      objectReference: {fileID: 21300000, guid: 7ff75395ce7dd0f4fb5c9308e7d67d48, type: 3}
+      objectReference: {fileID: 21300000, guid: ef351a137551b934eaf28777c15d566d, type: 3}
+    - target: {fileID: 9120784200182607211, guid: 9ec7a5f7c772a0246a3d8d893baff0fc, type: 3}
+      propertyPath: junglePlatform
+      value: 
+      objectReference: {fileID: 21300000, guid: d96a065f58340974ab73e2a8697797eb, type: 3}
     - target: {fileID: 9120784200182607211, guid: 9ec7a5f7c772a0246a3d8d893baff0fc, type: 3}
       propertyPath: spaceBackground
       value: 
-      objectReference: {fileID: 21300000, guid: e9f34e3cf6f1b044ab4d66233bf92f00, type: 3}
+      objectReference: {fileID: 21300000, guid: ce3b20d8c5dd4e04c9f6049d568cf7b5, type: 3}
     - target: {fileID: 9120784200182607211, guid: 9ec7a5f7c772a0246a3d8d893baff0fc, type: 3}
       propertyPath: jungleBackground
       value: 
@@ -226,7 +230,7 @@ PrefabInstance:
     - target: {fileID: 9120784200182607211, guid: 9ec7a5f7c772a0246a3d8d893baff0fc, type: 3}
       propertyPath: mountainPlatform
       value: 
-      objectReference: {fileID: 21300000, guid: 7ff75395ce7dd0f4fb5c9308e7d67d48, type: 3}
+      objectReference: {fileID: 21300000, guid: 5ebaecaaaf5d3c642a2cf6cadea77ce0, type: 3}
     - target: {fileID: 9120784200182607211, guid: 9ec7a5f7c772a0246a3d8d893baff0fc, type: 3}
       propertyPath: backgroundAnimator
       value: 
@@ -234,7 +238,7 @@ PrefabInstance:
     - target: {fileID: 9120784200182607211, guid: 9ec7a5f7c772a0246a3d8d893baff0fc, type: 3}
       propertyPath: mountainBackground
       value: 
-      objectReference: {fileID: 21300000, guid: 6891d70601604754d822fd83934e99ce, type: 3}
+      objectReference: {fileID: 21300000, guid: 92cfaa96f0a6adf43a2f7784e603d363, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ec7a5f7c772a0246a3d8d893baff0fc, type: 3}
 --- !u!1 &236022278
@@ -610,19 +614,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8526158406438348480, guid: dfb743b5ad020f34e90bfd3f5d728780, type: 3}
       propertyPath: m_fontColor.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8526158406438348480, guid: dfb743b5ad020f34e90bfd3f5d728780, type: 3}
       propertyPath: m_fontColor.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8526158406438348480, guid: dfb743b5ad020f34e90bfd3f5d728780, type: 3}
       propertyPath: m_fontColor.r
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8526158406438348480, guid: dfb743b5ad020f34e90bfd3f5d728780, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4278190080
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfb743b5ad020f34e90bfd3f5d728780, type: 3}
@@ -784,9 +788,25 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: b14c7f99ae8052b4daa9b36f459dcb0c, type: 3}
+    - target: {fileID: 2930240025395541771, guid: da4eaa7dbcf102847a5e5937cde38ad1, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8745098
+      objectReference: {fileID: 0}
     - target: {fileID: 2930240026487913333, guid: da4eaa7dbcf102847a5e5937cde38ad1, type: 3}
       propertyPath: m_Name
       value: in Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930240026487913334, guid: da4eaa7dbcf102847a5e5937cde38ad1, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930240026487913334, guid: da4eaa7dbcf102847a5e5937cde38ad1, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930240026487913334, guid: da4eaa7dbcf102847a5e5937cde38ad1, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2930240026487913353, guid: da4eaa7dbcf102847a5e5937cde38ad1, type: 3}
       propertyPath: m_RootOrder

@@ -27,15 +27,20 @@ public class ThemeSystem : MonoBehaviour
         else
         {
             TS = this;
+            InitializeThemes();
         }
     }
 
-    private void Start()
+    private void InitializeThemes()
     {
         _themeQueue.Enqueue(new Theme("jungleTheme",junglePlatform,jungleBackground,(0,0)));
         _themeQueue.Enqueue(new Theme("mountainTheme",mountainPlatform,mountainBackground,(1,1)));
         _themeQueue.Enqueue(new Theme("spaceTheme",spacePlatform,spaceBackground,(2,3)));
         _currentTheme = _themeQueue.Peek();
+    }
+    
+    private void Start()
+    {
         LevelSystem.LS.LevelChangedEvent += OnLevelChanged;
         ThemeChanged(_currentTheme);
     }
@@ -52,5 +57,10 @@ public class ThemeSystem : MonoBehaviour
     protected virtual void ThemeChanged(Theme newTheme)
     {
         ThemeChangedEvent?.Invoke(newTheme);
+    }
+
+    public Theme GetCurrentTheme()
+    {
+        return _currentTheme;
     }
 }

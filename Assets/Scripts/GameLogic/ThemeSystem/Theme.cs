@@ -7,13 +7,13 @@ namespace GameLogic.ThemeSystem
         public Theme(string themeName, Sprite platformSprite, Sprite backgroundSprite, (int, int) levelBounds)
         {
             _themeName = themeName;
-            _platformSprite = platformSprite;
+            PlatformSprite = platformSprite;
             BackgroundSprite = backgroundSprite;
             LevelBounds = levelBounds;
         }
 
         private string _themeName;
-        private Sprite _platformSprite;
+        public Sprite PlatformSprite;
         public Sprite BackgroundSprite { get; set; }
         public (int minLevel,int maxLevel) LevelBounds { get; }
 
