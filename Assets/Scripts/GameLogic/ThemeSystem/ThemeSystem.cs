@@ -17,7 +17,7 @@ public class ThemeSystem : MonoBehaviour
 
     private readonly Queue<Theme> _themeQueue = new Queue<Theme>();
     private Theme _currentTheme;
-    
+
     private void Awake()
     {
         if (TS != null)
@@ -29,20 +29,21 @@ public class ThemeSystem : MonoBehaviour
             TS = this;
         }
     }
-    
+
     private void Start()
     {
-        _themeQueue.Enqueue(new Theme("jungleTheme",junglePlatform,jungleBackground,(0,1)));
-        _themeQueue.Enqueue(new Theme("mountainTheme",mountainPlatform,mountainBackground,(2,3)));
-        _themeQueue.Enqueue(new Theme("spaceTheme",spacePlatform,spaceBackground,(4,50)));
+        _themeQueue.Enqueue(new Theme("jungleTheme",junglePlatform,jungleBackground,(0,0)));
+        _themeQueue.Enqueue(new Theme("mountainTheme",mountainPlatform,mountainBackground,(1,1)));
+        _themeQueue.Enqueue(new Theme("spaceTheme",spacePlatform,spaceBackground,(2,3)));
         _currentTheme = _themeQueue.Peek();
         LevelSystem.LS.LevelChangedEvent += OnLevelChanged;
         ThemeChanged(_currentTheme);
     }
-
+    
     private void OnLevelChanged(int newLevel)
     {
         if (!_currentTheme.OutOfLevelBounds(newLevel)) return;
+        if (_themeQueue.Count == 1) return;
         _themeQueue.Dequeue();
         _currentTheme = _themeQueue.Peek();
         ThemeChanged(_currentTheme);
