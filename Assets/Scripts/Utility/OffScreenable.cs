@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class OffScreenable : MonoBehaviour
@@ -11,6 +12,8 @@ public class OffScreenable : MonoBehaviour
     private GameObject _mainCamera;
     private const float OffScreenBuffer = 0f;
 
+    [SerializeField] private bool invokeEventOnXOffScreen = true;
+
     void Start()
     {
         _mainCamera = GameObject.FindWithTag("MainCamera");
@@ -19,8 +22,11 @@ public class OffScreenable : MonoBehaviour
     void Update()
     {
         if (_offScreenEventInvoked) return;
-        if (transform.position.x + _objectSize.x / 2 < -1 * (ScreenDimensions.SD.GetScreenWidth() / 2) +_mainCamera.transform.position.x-OffScreenBuffer||
-            transform.position.x - _objectSize.x / 2 > ScreenDimensions.SD.GetScreenWidth() / 2 +_mainCamera.transform.position.x+OffScreenBuffer||
+        if (
+            invokeEventOnXOffScreen &&
+                (transform.position.x + _objectSize.x / 2 < -1 * (ScreenDimensions.SD.GetScreenWidth() / 2) +_mainCamera.transform.position.x-OffScreenBuffer||
+                transform.position.x - _objectSize.x / 2 > ScreenDimensions.SD.GetScreenWidth() / 2 +_mainCamera.transform.position.x+OffScreenBuffer)
+            ||
             transform.position.y + _objectSize.y / 2 < -1 * (ScreenDimensions.SD.GetScreenHeight() / 2) +_mainCamera.transform.position.y-OffScreenBuffer||
             transform.position.y - _objectSize.y / 2 > ScreenDimensions.SD.GetScreenHeight() / 2 +_mainCamera.transform.position.y+OffScreenBuffer)
         {
