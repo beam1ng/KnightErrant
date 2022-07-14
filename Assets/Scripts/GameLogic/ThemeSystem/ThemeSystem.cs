@@ -33,9 +33,9 @@ public class ThemeSystem : MonoBehaviour
 
     private void InitializeThemes()
     {
-        _themeQueue.Enqueue(new Theme("jungleTheme",junglePlatform,jungleBackground,(0,0)));
-        _themeQueue.Enqueue(new Theme("mountainTheme",mountainPlatform,mountainBackground,(1,1)));
-        _themeQueue.Enqueue(new Theme("spaceTheme",spacePlatform,spaceBackground,(2,3)));
+        _themeQueue.Enqueue(new Theme("jungleTheme",junglePlatform,jungleBackground,(0,4)));
+        _themeQueue.Enqueue(new Theme("mountainTheme",mountainPlatform,mountainBackground,(5,9)));
+        _themeQueue.Enqueue(new Theme("spaceTheme",spacePlatform,spaceBackground,(10,14)));
         _currentTheme = _themeQueue.Peek();
     }
     

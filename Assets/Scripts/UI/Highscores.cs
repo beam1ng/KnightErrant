@@ -37,7 +37,7 @@ public class Highscores : MonoBehaviour
     {
         for (var i = 0; i < 5; i++)
         {
-            _highscoreText[i].transform.localPosition = Vector3.up*(160-i*80);
+            _highscoreText[i].transform.localPosition = Vector3.down*(80+i*80);
         }
     }
 
