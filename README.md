@@ -1,6 +1,6 @@
 # KnightErrant
 
-Knight Errant is an experimental 2d mobile game project. 
+Knight Errant is an experimental 2D mobile platformer game project. 
 
 Players influence is restricted to only tapping the screen, making the green creature jump.
 Neither jump height nor jump velocity can be altered by a player, which makes timing the jump correctly the key for beating highscores.
