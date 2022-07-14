@@ -352,11 +352,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5497903008811200180, guid: 9bd813bfb2872d74bb8a422c8ab54def, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0137551585
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5497903008811200180, guid: 9bd813bfb2872d74bb8a422c8ab54def, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.5
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 5497903008811200180, guid: 9bd813bfb2872d74bb8a422c8ab54def, type: 3}
       propertyPath: m_LocalPosition.z
@@ -837,7 +837,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5654293577368926407, guid: 44f0e36de58f93e419fdbc43594f48ad, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.5
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 5654293577368926407, guid: 44f0e36de58f93e419fdbc43594f48ad, type: 3}
       propertyPath: m_LocalPosition.z
@@ -894,7 +894,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2930240026487913333, guid: da4eaa7dbcf102847a5e5937cde38ad1, type: 3}
       propertyPath: m_Name
-      value: in Camera
+      value: Main Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930240026487913334, guid: da4eaa7dbcf102847a5e5937cde38ad1, type: 3}
+      propertyPath: orthographic size
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2930240026487913334, guid: da4eaa7dbcf102847a5e5937cde38ad1, type: 3}
       propertyPath: m_BackGroundColor.b
@@ -918,7 +922,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2930240026487913353, guid: da4eaa7dbcf102847a5e5937cde38ad1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2930240026487913353, guid: da4eaa7dbcf102847a5e5937cde38ad1, type: 3}
       propertyPath: m_LocalPosition.z
